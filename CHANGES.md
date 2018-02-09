@@ -225,7 +225,7 @@ Notable changes between releases.
 * Allow writing Ignition configs as YAML configs. Render as JSON for machines.
 * Add ASCII armored detached OpenPGP signature endpoints (`.asc`)
     - Enable signing by providing a `-key-ring-path` with a signing key and setting `BOOTCFG_PASSPHRASE` if needed
-* Add `metadata` endpoint which matches machines to custom metadata
+* Add `metadata` endpoint which matches machines to install metadata
 * Add `metadata` to group definitions in `config.yaml`
 
 #### Changes
@@ -239,7 +239,7 @@ Notable changes between releases.
 
 * Example TLS-authenticated Kubernetes cluster with rkt and CNI
 * Example TLS-authenticated Kubernetes cluster with Docker
-* Example custom metadata agent with Ignition, fetches metadata on boot and writes it to `/run/metadata/bootcfg`
+* Example install metadata agent with Ignition, fetches metadata on boot and writes it to `/run/metadata/bootcfg`
 * Example CoreOS install to disk with Ignition
 * Update etcd cluster examples to use Ignition, rather than cloud-config.
 

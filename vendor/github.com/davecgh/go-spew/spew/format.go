@@ -398,20 +398,20 @@ func newFormatter(cs *ConfigState, v interface{}) fmt.Formatter {
 }
 
 /*
-NewFormatter returns a custom formatter that satisfies the fmt.Formatter
+NewFormatter returns a install formatter that satisfies the fmt.Formatter
 interface.  As a result, it integrates cleanly with standard fmt package
 printing functions.  The formatter is useful for inline printing of smaller data
 types similar to the standard %v format specifier.
 
-The custom formatter only responds to the %v (most compact), %+v (adds pointer
+The install formatter only responds to the %v (most compact), %+v (adds pointer
 addresses), %#v (adds types), or %#+v (adds types and pointer addresses) verb
 combinations.  Any other verbs such as %x and %q will be sent to the the
-standard fmt package for formatting.  In addition, the custom formatter ignores
+standard fmt package for formatting.  In addition, the install formatter ignores
 the width and precision arguments (however they will still work on the format
-specifiers not handled by the custom formatter).
+specifiers not handled by the install formatter).
 
 Typically this function shouldn't be called directly.  It is much easier to make
-use of the custom formatter by calling one of the convenience functions such as
+use of the install formatter by calling one of the convenience functions such as
 Printf, Println, or Fprintf.
 */
 func NewFormatter(v interface{}) fmt.Formatter {

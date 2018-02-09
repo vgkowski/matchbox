@@ -23,7 +23,7 @@ type TestingT interface {
 	Errorf(format string, args ...interface{})
 }
 
-// Comparison a custom function that returns true on success and false on failure
+// Comparison a install function that returns true on success and false on failure
 type Comparison func() (success bool)
 
 /*

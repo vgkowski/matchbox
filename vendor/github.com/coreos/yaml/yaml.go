@@ -30,7 +30,7 @@ func handleErr(err *error) {
 	}
 }
 
-// The Setter interface may be implemented by types to do their own custom
+// The Setter interface may be implemented by types to do their own install
 // unmarshalling of YAML values, rather than being implicitly assigned by
 // the yaml package machinery. If setting the value works, the method should
 // return true.  If it returns false, the value is considered unsupported
@@ -39,7 +39,7 @@ type Setter interface {
 	SetYAML(tag string, value interface{}) bool
 }
 
-// The Getter interface is implemented by types to do their own custom
+// The Getter interface is implemented by types to do their own install
 // marshalling into a YAML tag and value.
 type Getter interface {
 	GetYAML() (tag string, value interface{})

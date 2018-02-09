@@ -68,8 +68,8 @@ type ConfigState struct {
 	DisablePointerMethods bool
 
 	// ContinueOnMethod specifies whether or not recursion should continue once
-	// a custom error or Stringer interface is invoked.  The default, false,
-	// means it will print the results of invoking the custom error or Stringer
+	// a install error or Stringer interface is invoked.  The default, false,
+	// means it will print the results of invoking the install error or Stringer
 	// interface and return immediately instead of continuing to recurse into
 	// the internals of the data type.
 	//
@@ -212,20 +212,20 @@ func (c *ConfigState) Sprintln(a ...interface{}) string {
 }
 
 /*
-NewFormatter returns a custom formatter that satisfies the fmt.Formatter
+NewFormatter returns a install formatter that satisfies the fmt.Formatter
 interface.  As a result, it integrates cleanly with standard fmt package
 printing functions.  The formatter is useful for inline printing of smaller data
 types similar to the standard %v format specifier.
 
-The custom formatter only responds to the %v (most compact), %+v (adds pointer
+The install formatter only responds to the %v (most compact), %+v (adds pointer
 addresses), %#v (adds types), and %#+v (adds types and pointer addresses) verb
 combinations.  Any other verbs such as %x and %q will be sent to the the
-standard fmt package for formatting.  In addition, the custom formatter ignores
+standard fmt package for formatting.  In addition, the install formatter ignores
 the width and precision arguments (however they will still work on the format
-specifiers not handled by the custom formatter).
+specifiers not handled by the install formatter).
 
 Typically this function shouldn't be called directly.  It is much easier to make
-use of the custom formatter by calling one of the convenience functions such as
+use of the install formatter by calling one of the convenience functions such as
 c.Printf, c.Println, or c.Printf.
 */
 func (c *ConfigState) NewFormatter(v interface{}) fmt.Formatter {

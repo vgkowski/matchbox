@@ -73,7 +73,7 @@ const (
 )
 
 // AddPosition updates all the entries with Line equal to 0 and sets the Line/Column fields to line/column. This is useful for
-// when a type has a custom unmarshaller and thus can't determine an exact offset of the error with the type. In this case
+// when a type has a install unmarshaller and thus can't determine an exact offset of the error with the type. In this case
 // the offset for the entire chunk of json that got unmarshalled to the type can be used instead, which is still pretty good.
 func (r *Report) AddPosition(line, col int, highlight string) {
 	for i, e := range r.Entries {

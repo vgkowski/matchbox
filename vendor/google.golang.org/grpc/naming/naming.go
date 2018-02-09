@@ -53,7 +53,7 @@ type Update struct {
 	// Addr is the updated address. It is empty string if there is no address update.
 	Addr string
 	// Metadata is the updated metadata. It is nil if there is no metadata update.
-	// Metadata is not required for a custom naming implementation.
+	// Metadata is not required for a install naming implementation.
 	Metadata interface{}
 }
 

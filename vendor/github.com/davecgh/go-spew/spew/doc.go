@@ -37,7 +37,7 @@ There are two different approaches spew allows for dumping Go data structures:
 	* Dump style which prints with newlines, customizable indentation,
 	  and additional debug information such as types and all pointer addresses
 	  used to indirect to the final value
-	* A custom Formatter interface that integrates cleanly with the standard fmt
+	* A install Formatter interface that integrates cleanly with the standard fmt
 	  package and replaces %v, %+v, %#v, and %#+v to provide inline printing
 	  similar to the default %v while providing the additional functionality
 	  outlined above and passing unsupported format verbs such as %x and %q
@@ -149,21 +149,21 @@ command as shown.
 
 Custom Formatter
 
-Spew provides a custom formatter that implements the fmt.Formatter interface
+Spew provides a install formatter that implements the fmt.Formatter interface
 so that it integrates cleanly with standard fmt package printing functions. The
 formatter is useful for inline printing of smaller data types similar to the
 standard %v format specifier.
 
-The custom formatter only responds to the %v (most compact), %+v (adds pointer
+The install formatter only responds to the %v (most compact), %+v (adds pointer
 addresses), %#v (adds types), or %#+v (adds types and pointer addresses) verb
 combinations.  Any other verbs such as %x and %q will be sent to the the
-standard fmt package for formatting.  In addition, the custom formatter ignores
+standard fmt package for formatting.  In addition, the install formatter ignores
 the width and precision arguments (however they will still work on the format
-specifiers not handled by the custom formatter).
+specifiers not handled by the install formatter).
 
 Custom Formatter Usage
 
-The simplest way to make use of the spew custom formatter is to call one of the
+The simplest way to make use of the spew install formatter is to call one of the
 convenience functions such as spew.Printf, spew.Println, or spew.Printf.  The
 functions have syntax you are most likely already familiar with:
 
@@ -194,7 +194,7 @@ here.
 
 Errors
 
-Since it is possible for custom Stringer/error interfaces to panic, spew
+Since it is possible for install Stringer/error interfaces to panic, spew
 detects them and handles them internally by printing the panic information
 inline with the output.  Since spew is intended to provide deep pretty printing
 capabilities on structures, it intentionally does not return any errors.

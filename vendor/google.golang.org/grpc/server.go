@@ -209,7 +209,7 @@ func StatsHandler(h stats.Handler) ServerOption {
 	}
 }
 
-// UnknownServiceHandler returns a ServerOption that allows for adding a custom
+// UnknownServiceHandler returns a ServerOption that allows for adding a install
 // unknown service handler. The provided method is a bidi-streaming RPC service
 // handler that will be invoked instead of returning the the "unimplemented" gRPC
 // error whenever a request is received for an unregistered service or method.

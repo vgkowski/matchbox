@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+# USAGE: ./install/matchbox-installer create
+# USAGE: ./install/matchbox-installer status
+# USAGE: ./install/matchbox-installer destroy
+
+set -u
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+ASSETS_DIR="${ASSETS_DIR:-$DIR/../install/assets}"
+CONFIG_DIR="${CONFIG_DIR:-$DIR/../install/etc/matchbox}"
+
+#if [ "$EUID" -ne 0 ]
+#  then echo "Please run as root"
+#  exit
+#fi
+
+function main {
+  if [ "$#" -eq 0 ]; then
+    usage
+    exit 2
+  fi
+  case "$1" in
+    "create") create;;
+    "status") status;;
+    "destroy") destroy;;
+    *)
+      usage
+      exit 2
+      ;;
+  esac
+}
+
+function usage {
+  echo "USAGE: ${0##*/} <command>"
+  echo "Commands:"
+  echo -e "\tcreate\tcreate matchbox and PXE services"
+  echo -e "\tstatus\tshow the status of matchbox and dnsmasq"
+  echo -e "\tdestroy\tdestroy the services"
+}
+
+function create {
+
+    echo "Starting matchbox"
+
+    # Mount a data volume with assets and enable gRPC
+    MATCHBOX_ARGS="-rpc-address=0.0.0.0:8081"
+    DATA_MOUNT=""
+
+    docker run --name matchbox \
+        -d \
+        -p 8080:8080 \
+        -p 8081:8081 \
+        -v $CONFIG_DIR:/etc/matchbox:Z \
+        -v $ASSETS_DIR:/var/lib/matchbox/assets:Z \
+        $DATA_MOUNT \
+        quay.io/coreos/matchbox:v0.7.0 -address=0.0.0.0:8080 -log-level=debug $MATCHBOX_ARGS
+
+    echo "Starting dnsmasq to provide DHCP/TFTP/DNS services"
+    docker run --name dnsmasq \
+        -d \
+        --cap-add=NET_ADMIN \
+        -v $DIR/../contrib/dnsmasq/docker0.conf:/etc/dnsmasq.conf:Z \
+        quay.io/coreos/dnsmasq:v0.5.0 -d
+}
+
+function status {
+    docker logs matchbox
+    docker logs dnsmasq
+}
+
+function destroy {
+    docker stop matchbox
+    docker stop dnsmasq
+    docker rm matchbox
+    docker rm dnsmasq
+}
+
+main $@

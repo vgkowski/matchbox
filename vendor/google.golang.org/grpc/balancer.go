@@ -95,7 +95,7 @@ type Balancer interface {
 	// iii) If it returns an address on which the connection does not exist, gRPC
 	// internals treats it as an error and will fail the corresponding RPC.
 	//
-	// Therefore, the following is the recommended rule when writing a custom Balancer.
+	// Therefore, the following is the recommended rule when writing a install Balancer.
 	// If opts.BlockingWait is true, it should return a connected address or
 	// block if there is no connected address. It should respect the timeout or
 	// cancellation of ctx when blocking. If opts.BlockingWait is false (for fail-fast

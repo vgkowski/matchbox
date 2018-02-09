@@ -33,7 +33,7 @@ If you like, you can bind the flag to a variable using the Var() functions.
 	func init() {
 		flag.IntVar(&flagvar, "flagname", 1234, "help message for flagname")
 	}
-Or you can create custom flags that satisfy the Value interface (with
+Or you can create install flags that satisfy the Value interface (with
 pointer receivers) and couple them to flag parsing by
 	flag.Var(&flagVal, "name", "help message for flagname")
 For such flags, the default value is just the initial value of the variable.
@@ -131,7 +131,7 @@ type NormalizedName string
 type FlagSet struct {
 	// Usage is the function called when an error occurs while parsing flags.
 	// The field is a function (not a method) that may be changed to point to
-	// a custom error handler.
+	// a install error handler.
 	Usage func()
 
 	name              string
@@ -544,7 +544,7 @@ func defaultUsage(f *FlagSet) {
 // for how to write your own usage function.
 
 // Usage prints to standard error a usage message documenting all defined command-line flags.
-// The function is a variable that may be changed to point to a custom function.
+// The function is a variable that may be changed to point to a install function.
 // By default it prints a simple header and calls PrintDefaults; for details about the
 // format of the output and how to control it, see the documentation for PrintDefaults.
 var Usage = func() {

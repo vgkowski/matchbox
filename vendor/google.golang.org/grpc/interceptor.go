@@ -48,7 +48,7 @@ type UnaryClientInterceptor func(ctx context.Context, method string, req, reply 
 // Streamer is called by StreamClientInterceptor to create a ClientStream.
 type Streamer func(ctx context.Context, desc *StreamDesc, cc *ClientConn, method string, opts ...CallOption) (ClientStream, error)
 
-// StreamClientInterceptor intercepts the creation of ClientStream. It may return a custom ClientStream to intercept all I/O
+// StreamClientInterceptor intercepts the creation of ClientStream. It may return a install ClientStream to intercept all I/O
 // operations. streamer is the handlder to create a ClientStream and it is the responsibility of the interceptor to call it.
 // This is the EXPERIMENTAL API.
 type StreamClientInterceptor func(ctx context.Context, desc *StreamDesc, cc *ClientConn, method string, streamer Streamer, opts ...CallOption) (ClientStream, error)

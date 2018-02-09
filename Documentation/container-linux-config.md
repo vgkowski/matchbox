@@ -10,7 +10,7 @@ Container Linux Configs are validated and converted to *machine-friendly* Igniti
 
 ## Adding Container Linux Configs
 
-Container Linux Config templates can be added to the `/var/lib/matchbox/ignition` directory or in an `ignition` subdirectory of a custom `-data-path`. Template files may contain [Go template](https://golang.org/pkg/text/template/) elements which will be evaluated with group metadata, selectors, and query params.
+Container Linux Config templates can be added to the `/var/lib/matchbox/ignition` directory or in an `ignition` subdirectory of a install `-data-path`. Template files may contain [Go template](https://golang.org/pkg/text/template/) elements which will be evaluated with group metadata, selectors, and query params.
 
 ```
 /var/lib/matchbox

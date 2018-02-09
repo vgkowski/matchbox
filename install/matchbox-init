@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# USAGE: ./install/matchbox-init channel version
+
+set -u
+
+function main {
+  if [ "$#" -ne 2 ]; then
+    usage
+    exit 2
+  else
+    init $@
+  fi
+}
+
+function usage {
+  echo "USAGE: ${0##*/} <command>"
+  echo "Commands:"
+  echo -e "\tinit channel version\tinitialize matchbox assets and config"
+}
+
+function init {
+    DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    CHANNEL=${1}
+    VERSION=${2}
+    ASSETS_DIR="${ASSETS_DIR:-$DIR/../install/assets}"
+    CONFIG_DIR="${CONFIG_DIR:-$DIR/../install/etc/matchbox}"
+    # download specified version of CoreOS Container Linux
+    echo "downloading CoreOS Container Linux $CHANNEL $VERSION in $ASSETS_DIR"
+    $DIR/../scripts/get-coreos $CHANNEL $VERSION $ASSETS_DIR
+
+    # generate self signed certificates for secured gRPC access
+    echo "generating self signed certificates in $CONFIG_DIR"
+    export SAN=DNS.1:matchbox.vincent
+    cd $DIR/../scripts/tls
+    ./cert-gen
+
+    # check certificates
+    openssl x509 -noout -text -in ca.crt
+    openssl x509 -noout -text -in server.crt
+    openssl x509 -noout -text -in client.crt
+    openssl verify -CAfile ca.crt server.crt
+    openssl verify -CAfile ca.crt client.crt
+
+    # move certs in the matchbox config directory
+    if [ ! -d "$CONFIG_DIR" ]; then
+        mkdir -p $CONFIG_DIR
+    fi
+    mv ca.crt server.crt server.key $CONFIG_DIR
+}
+
+main $@
