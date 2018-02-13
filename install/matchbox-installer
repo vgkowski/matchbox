@@ -60,7 +60,7 @@ function create {
     docker run --name dnsmasq \
         -d \
         --cap-add=NET_ADMIN \
-        -v $DIR/../contrib/dnsmasq/docker0.conf:/etc/dnsmasq.conf:Z \
+        -v $DIR/../install/dnsmasq.conf:/etc/dnsmasq.conf:Z \
         quay.io/coreos/dnsmasq:v0.5.0 -d
 }
 
